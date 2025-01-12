@@ -48,7 +48,7 @@ jobs:
       
       - name: GH Release
         uses: softprops/action-gh-release@v2.2.1
-          with: 
-            files: ./mi_app.zip
-            body: "GithubActions Demo App"
-            tag_name: ${{ github.ref_name }}
+        with: 
+          files: ./mi_app.zip
+          body: "GithubActions Demo App"
+          tag_name: ${{ github.ref_name }}
