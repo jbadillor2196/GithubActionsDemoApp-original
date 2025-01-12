@@ -15,11 +15,17 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4.2.2
+      
       - name: Setup .NET Core SDK
         uses: actions/setup-dotnet@v4.2.0
         with: 
           dotnet-version: 8.0.x
+      
       - name: Dependencies Fetching
         run: dotnet restore
+      
       - name: Building
         run: dotnet build --no-restore
+      
+      - name: Testing
+        run: dotnet test --no-build
