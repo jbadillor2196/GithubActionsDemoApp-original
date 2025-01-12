@@ -8,7 +8,8 @@ on:
       - 'Pruebas/**'
     branches:
       - main
-
+    tags:
+      - '*'
 jobs:
   builds:
     runs-on: ubuntu-latest
@@ -44,9 +45,11 @@ jobs:
           name: build
       
       - name: Compress 
+        if: startsWith(github.ref,'refs/tags/')
         run: zip -r mi_app.zip ./miapp
       
       - name: GH Release
+        if: startsWith(github.ref,'refs/tags/'
         uses: softprops/action-gh-release@v2.2.1
         with: 
           files: ./mi_app.zip
