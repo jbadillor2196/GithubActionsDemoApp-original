@@ -12,6 +12,8 @@ on:
 jobs:
   builds:
     runs-on: ubuntu-latest
+    permissions: 
+      contents: write
     env: 
       proyecto: GithubActionsDemoApp/GithubActionsDemoApp.csproj
     steps:
@@ -34,9 +36,19 @@ jobs:
       
       - name: Publish
         run: dotnet publish $proyecto -c Release -o miapp --runtime win-x86
+      
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v4.6.0
         with:
           path: ./miapp
           name: build
-        
+      
+      - name: Compress 
+        run: zip -r mi_app.zip ./miapp
+      
+      - name: GH Release
+        uses: softprops/action-gh-release@v2.2.1
+          with: 
+            files: ./mi_app.zip
+            body: "GithubActions Demo App"
+            tag_name: ${{ github.ref_name }}
